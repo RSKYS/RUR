@@ -1,0 +1,42 @@
+## Maintainer: Dušan Simić <dusan.simic1810@gmail.com>
+## Modifier: Pouria Rezaei <Pouria.rz@outlook.com>
+
+pkgname=avvie
+_appname=Avvie
+_appid=com.github.taiko2k.avvie
+pkgver=2.0
+pkgrel=1
+pkgdesc="A utility for quickly cropping images"
+arch=(x86_64)
+url=https://github.com/Taiko2k/Avvie
+license=(GPL3)
+depends=(gtk3
+         libnotify
+         python-cairo
+         python-gobject
+         python-piexif
+         python-pillow)
+
+source=("$pkgname-$pkgver.tar.gz::https://github.com/Taiko2k/avvie/archive/v$pkgver.tar.gz"
+        "$pkgname.sh")
+
+prepare() {
+  mv "$_appname-$pkgver" "$_appname"
+  cd "$_appname"
+  sed -i "s,main.py,$pkgname," "$_appid.desktop"
+}
+
+package() {
+  cd "$srcdir/$_appname"
+  install -Dm644 main.py -t "$pkgdir/opt/$pkgname"
+  install -Dm644 "$_appid.appdata.xml" -t "$pkgdir/usr/share/metainfo"
+  install -Dm644 "$_appid.desktop" -t "$pkgdir/usr/share/applications"
+  install -Dm644 "$_appid.svg" -t "$pkgdir/usr/share/icons/hicolor/scalable/apps"
+  install -Dm644 "$_appid-symbolic.svg" -t "$pkgdir/usr/share/icons/hicolor/symbolic/apps"
+
+  install -Dm755 "$srcdir/$pkgname.sh" "$pkgdir/usr/bin/$pkgname"
+}
+
+md5sums=('f7aef8d528cce48f8d05d02893443889'
+         'edff7b032b460cb4a511dac12acad825')
+
