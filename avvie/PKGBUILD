@@ -28,7 +28,7 @@ prepare() {
 
 package() {
   cd "$srcdir/$_appname"
-  install -Dm644 main.py -t "$pkgdir/opt/$pkgname"
+  install -Dm644 image-crop.svg main.py pinku.css -t "$pkgdir/opt/$pkgname"
   install -Dm644 "$_appid.appdata.xml" -t "$pkgdir/usr/share/metainfo"
   install -Dm644 "$_appid.desktop" -t "$pkgdir/usr/share/applications"
   install -Dm644 "$_appid.svg" -t "$pkgdir/usr/share/icons/hicolor/scalable/apps"
