@@ -4,8 +4,8 @@
 pkgname=avvie
 _appname=Avvie
 _appid=com.github.taiko2k.avvie
-pkgver=2.0
-pkgrel=1
+pkgver=master
+pkgrel=0
 pkgdesc="A utility for quickly cropping images"
 arch=(x86_64)
 url=https://github.com/Taiko2k/Avvie
@@ -17,7 +17,7 @@ depends=(gtk3
          python-piexif
          python-pillow)
 
-source=("$pkgname-$pkgver.tar.gz::https://github.com/Taiko2k/avvie/archive/v$pkgver.tar.gz"
+source=("$pkgname-$pkgver.tar.gz::https://github.com/Taiko2k/avvie/archive/$pkgver/v$pkgver.tar.gz"
         "$pkgname.sh")
 
 prepare() {
