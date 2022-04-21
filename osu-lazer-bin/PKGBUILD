@@ -4,7 +4,7 @@
 
 pkgname=osu-lazer-bin
 pkgver=$(curl https://github.com/ppy/osu/releases/latest | egrep -o '[0-9]{4}.[0-9]{1,4}.[0-9]{1,}')
-pkgrel=1
+pkgrel=0
 pkgdesc="The future of osu! and the beginning of an open era! Commonly known by the codename osu!lazer. Pew pew."
 arch=('x86_64')
 url="https://osu.ppy.sh"

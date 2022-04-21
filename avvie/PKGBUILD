@@ -37,6 +37,6 @@ package() {
   install -Dm755 "$srcdir/$pkgname.sh" "$pkgdir/usr/bin/$pkgname"
 }
 
-md5sums=('f7aef8d528cce48f8d05d02893443889'
+md5sums=('SKIP'
          'edff7b032b460cb4a511dac12acad825')
 
