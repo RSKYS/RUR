@@ -15,7 +15,6 @@ depends=('python-pillow'
          'python-pylast'
          'python-pysdl2' # AUR
          'python-send2trash'
-         'python-pylyrics' # AUR
          'python-musicbrainzngs'
          'python-mutagen'
          'python-isounidecode' # AUR
@@ -31,9 +30,6 @@ depends=('python-pillow'
          'libnotify'
          'ffmpeg'
          'flac'
-         'wavpack'
-         'gst-plugins-good'
-         'gst-plugins-bad'
          'noto-fonts-extra'
          'noto-fonts'
          'sdl2_image'
@@ -41,9 +37,12 @@ depends=('python-pillow'
          'mpg123'
          'libpulse'
          'opusfile'
+         'wavpack'
          'libvorbis'
          'libappindicator-gtk3'
          'libopenmpt' # AUR
+         'libsamplerate'
+         'python-httpx' # Workaround for https://bugs.archlinux.org/task/74611
          )
          
 optdepends=('noto-fonts-cjk: Matching font for CJK characters'
@@ -53,7 +52,7 @@ optdepends=('noto-fonts-cjk: Matching font for CJK characters'
             'python-pypresence: Discord status support'
             'python-pychromecast: Chromecast stream support' 
             'picard: Recommended tag editor'
-            'gst-plugins-ugly: For GStreamer WMA support'
+            'python-jxlpy: JPEG XL image support' # AUR
             )
             
 source=("$pkgname-$pkgver.tar.gz::https://github.com/Taiko2k/TauonMusicBox/archive/$pkgver/v$pkgver.tar.gz")
