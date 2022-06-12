@@ -55,13 +55,15 @@ optdepends=('noto-fonts-cjk: Matching font for CJK characters'
             'python-jxlpy: JPEG XL image support' # AUR
             )
             
-source=("$pkgname-$pkgver.tar.gz::https://github.com/Taiko2k/TauonMusicBox/archive/$pkgver/v$pkgver.tar.gz")
+source=("$pkgname-$pkgver.tar.gz::https://github.com/Taiko2k/TauonMusicBox/archive/$pkgver/v$pkgver.tar.gz"
+        "flatpak-rpc.diff")
 
 
 build() {
     cd "$_gitname-$pkgver"
     python compile-translations.py
     bash compile-phazor.sh
+    patch -p1 < ../flatpak-rpc.diff
 }
 
 package() {
@@ -82,4 +84,5 @@ package() {
     install -Dm755 "extra/tauonmb.sh" "$pkgdir/usr/bin/tauon"
 }
 
-md5sums=('SKIP')
+md5sums=('SKIP'
+'ac6f309da7bd06f89d32110c7f990cbe')
