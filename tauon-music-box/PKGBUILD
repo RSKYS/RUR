@@ -63,7 +63,8 @@ build() {
     cd "$_gitname-$pkgver"
     python compile-translations.py
     bash compile-phazor.sh
-    patch -p1 < ../flatpak-rpc.diff
+# Most likely won't get required in first impression.
+    #patch -p1 < ../flatpak-rpc.diff
 }
 
 package() {

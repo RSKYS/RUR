@@ -2,41 +2,34 @@
 ## Modifier: Pouria Rezaei <Pouria.rz@outlook.com>
 
 pkgname=avvie
-_appname=Avvie
-_appid=com.github.taiko2k.avvie
-pkgver=master
+_pkgname=Avvie
+pkgver=master #Branch you wish to test
 pkgrel=0
 pkgdesc="A utility for quickly cropping images"
 arch=(x86_64)
-url=https://github.com/Taiko2k/Avvie
 license=(GPL3)
-depends=(gtk3
+depends=(gtk4
+         libadwaita
          libnotify
          python-cairo
          python-gobject
          python-piexif
          python-pillow)
+makedepends=(meson)
+checkdepends=(appstream-glib)
+source=("$pkgname-$pkgver.tar.gz::https://github.com/Taiko2k/Avvie/archive/$pkgver/v$pkgver.tar.gz")
 
-source=("$pkgname-$pkgver.tar.gz::https://github.com/Taiko2k/avvie/archive/$pkgver/v$pkgver.tar.gz"
-        "$pkgname.sh")
+build() {
+	arch-meson "$_pkgname-$pkgver" build
+	meson compile -C build
+}
 
-prepare() {
-  mv "$_appname-$pkgver" "$_appname"
-  cd "$_appname"
-  sed -i "s,main.py,$pkgname," "$_appid.desktop"
+check() {
+	meson test -C build
 }
 
 package() {
-  cd "$srcdir/$_appname"
-  install -Dm644 image-crop.svg main.py pinku.css -t "$pkgdir/opt/$pkgname"
-  install -Dm644 "$_appid.appdata.xml" -t "$pkgdir/usr/share/metainfo"
-  install -Dm644 "$_appid.desktop" -t "$pkgdir/usr/share/applications"
-  install -Dm644 "$_appid.svg" -t "$pkgdir/usr/share/icons/hicolor/scalable/apps"
-  install -Dm644 "$_appid-symbolic.svg" -t "$pkgdir/usr/share/icons/hicolor/symbolic/apps"
-
-  install -Dm755 "$srcdir/$pkgname.sh" "$pkgdir/usr/bin/$pkgname"
+	meson install -C build --destdir "$pkgdir"
 }
 
-md5sums=('SKIP'
-         'edff7b032b460cb4a511dac12acad825')
-
+md5sums=('SKIP')
