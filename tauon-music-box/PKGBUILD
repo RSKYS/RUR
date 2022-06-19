@@ -72,7 +72,7 @@ package() {
     install -Dm755 tauon.py -t "$pkgdir/opt/$pkgname"
     install -Dm644 input.txt -t "$pkgdir/opt/$pkgname"
     
-    cp -r  assets templates theme t_modules lib "$pkgdir/opt/$pkgname"
+    cp -r assets templates theme t_modules lib "$pkgdir/opt/$pkgname"
  
     for t in de es fr_FR hu id ja_JP nb_NO pt pt_BR pt_PT ru sv zh_CN; do
         install -Dm644 locale/${t}/LC_MESSAGES/*.mo -t "$pkgdir/usr/share/locale/${t}/LC_MESSAGES"
@@ -86,4 +86,4 @@ package() {
 }
 
 md5sums=('SKIP'
-'ac6f309da7bd06f89d32110c7f990cbe')
+'SKIP')
