@@ -1,6 +1,4 @@
-## Maintainer: David Husička <contact@bydave.net>
-## Contributor: Tyler Nelson <neo@cybercat.cc>
-## Modifier: Pouria Rezaei <Pouria.rz@outlook.com>
+# Based on AUR
 
 pkgname=osu-lazer-bin
 pkgver=$(curl https://github.com/ppy/osu/releases/latest | egrep -o '[0-9]{4}.[0-9]{1,4}.[0-9]{1,}')

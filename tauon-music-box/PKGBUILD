@@ -1,11 +1,12 @@
-## Maintainer: Taiko2k <captain dot gxj at gmail dot com>
-## Modifier: Pouria Rezaei <Pouria.rz@outlook.com>
+# Based on AUR
 
 pkgname=tauon-music-box
 _pkgname=tauonmb
 _gitname=TauonMusicBox
-pkgver=master #Branch you wish to test
-pkgrel=0
+pkgver=master # Branch
+pkgrel=1
+_kissfftver=131.1.0
+_miniaudiocommit=4d813cfe23c28db165cce6785419fee9d2399766
 pkgdesc="A modern streamlined music player"
 arch=('any')
 url="https://tauonmusicbox.rocks"
@@ -25,7 +26,6 @@ depends=('python-pillow'
          'python-requests'
          'python-dbus'
          'python-natsort'
-         'python-pulsectl' # AUR
          'python-websocket-client'
          'libnotify'
          'ffmpeg'
@@ -35,14 +35,13 @@ depends=('python-pillow'
          'sdl2_image'
          'xdg-utils'
          'mpg123'
-         'libpulse'
          'opusfile'
          'wavpack'
          'libvorbis'
          'libappindicator-gtk3'
          'libopenmpt' # AUR
          'libsamplerate'
-         'python-httpx' # Workaround for https://bugs.archlinux.org/task/74611
+         'python-httpx' # For https://bugs.archlinux.org/task/74611
          )
          
 optdepends=('noto-fonts-cjk: Matching font for CJK characters'
@@ -56,15 +55,17 @@ optdepends=('noto-fonts-cjk: Matching font for CJK characters'
             )
             
 source=("$pkgname-$pkgver.tar.gz::https://github.com/Taiko2k/TauonMusicBox/archive/$pkgver/v$pkgver.tar.gz"
-        "flatpak-rpc.diff")
+	"kissfft.tar.gz::https://github.com/mborgerding/kissfft/archive/refs/tags/$_kissfftver.tar.gz"
+	"miniaudio.tar.gz::https://github.com/mackron/miniaudio/archive/4d813cf.tar.gz"
+	)
 
 
 build() {
+    mv kissfft-$_kissfftver/* $_gitname-$pkgver/src/phazor/kissfft/
+    mv miniaudio-$_miniaudiocommit/* $_gitname-$pkgver/src/phazor/miniaudio/
     cd "$_gitname-$pkgver"
     python compile-translations.py
     bash compile-phazor.sh
-# Most likely won't get required in first impression.
-    #patch -p1 < ../flatpak-rpc.diff
 }
 
 package() {
@@ -72,9 +73,9 @@ package() {
     install -Dm755 tauon.py -t "$pkgdir/opt/$pkgname"
     install -Dm644 input.txt -t "$pkgdir/opt/$pkgname"
     
-    cp -r assets templates theme t_modules lib "$pkgdir/opt/$pkgname"
+    cp -r  assets templates theme t_modules lib "$pkgdir/opt/$pkgname"
  
-    for t in de es fr_FR hu id ja_JP nb_NO pt pt_BR pt_PT ru sv zh_CN; do
+    for t in de es fr_FR hu id ja_JP nb_NO pt pt_BR pt_PT ru sv zh_CN tr; do
         install -Dm644 locale/${t}/LC_MESSAGES/*.mo -t "$pkgdir/usr/share/locale/${t}/LC_MESSAGES"
     done
  
@@ -86,4 +87,5 @@ package() {
 }
 
 md5sums=('SKIP'
-'SKIP')
+         '981ad3e496fbd8edb99704fc0e2aa939'
+         '709b15aed941a14d6e921bd87caff9d3')
